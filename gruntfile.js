@@ -23,6 +23,7 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         src: {
             js: ['<%=baseDir%>/app/**/*.js'],
+            ts: ['<%=baseDir%>/app/**/*.ts'],
             templates: ['<%= baseDir %>/app/**/*.tpl.html'],
             sass: ['<%= baseDir %>/styles/main.scss']
         },
@@ -42,10 +43,11 @@ module.exports = function(grunt) {
                         app: './<%= baseDir %>/app/app.js'
                     },
                     debug: false,
-                    transform: ['browserify-ngannotate']
+                    transform: ['browserify-ngannotate'],
+                    plugin: ["tsify"]
                 },
                 files: {
-                    '<%= distDir %>/app.js': ['<%= src.js %>', '<%= distDir %>/templates.js']
+                    '<%= distDir %>/app.js': ['<%= src.js %>', '<%= src.ts %>', '<%= distDir %>/templates.js']
                 }
             }
         },
