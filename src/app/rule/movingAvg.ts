@@ -1,3 +1,6 @@
-var a: string = "Hello Sun";
+export = MovingAvgCtrl;
 
-console.log(a);
+/* @ngInject */
+function MovingAvgCtrl($scope: any) {
+    $scope.name = "Hello Sun";
+}

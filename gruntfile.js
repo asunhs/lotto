@@ -7,13 +7,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-ng-annotate');
     grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-html2js');
     grunt.loadNpmTasks('grunt-sass');
 
     // Default tasks.
     grunt.registerTask('asset', ['copy']);
-    grunt.registerTask('js', ['html2js', 'browserify', 'clean:js']);
+    grunt.registerTask('js', ['html2js', 'browserify', 'ngAnnotate:js', 'clean:js']);
     grunt.registerTask('css', ['sass', 'cssmin', 'clean:css']);
     grunt.registerTask('default', ['asset', 'css', 'js', 'uglify']);
 
@@ -43,12 +44,24 @@ module.exports = function(grunt) {
                         app: './<%= baseDir %>/app/app.js'
                     },
                     debug: false,
-                    transform: ['browserify-ngannotate'],
+                    //transform: ['browserify-ngannotate'],
                     plugin: ["tsify"]
                 },
                 files: {
                     '<%= distDir %>/app.js': ['<%= src.js %>', '<%= src.ts %>', '<%= distDir %>/templates.js']
                 }
+            }
+        },
+        ngAnnotate: {
+            js: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= distDir %>',
+                        src: ['app.js'],
+                        dest: '<%= distDir %>'
+                    }
+                ]
             }
         },
         html2js: {
