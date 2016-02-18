@@ -44,7 +44,6 @@ module.exports = function(grunt) {
                         app: './<%= baseDir %>/app/app.js'
                     },
                     debug: false,
-                    //transform: ['browserify-ngannotate'],
                     plugin: ["tsify"]
                 },
                 files: {
@@ -104,6 +103,14 @@ module.exports = function(grunt) {
                     dest: '<%=distDir%>/images',
                     src:['**/*'],
                     cwd: '<%=baseDir%>/images',
+                    expand: true
+                }]
+            },
+            json: {
+                files: [{
+                    dest: '<%=distDir%>/json',
+                    src:['**/*'],
+                    cwd: '<%=baseDir%>/json',
                     expand: true
                 }]
             }
