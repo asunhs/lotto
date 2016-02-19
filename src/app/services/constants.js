@@ -1,4 +1,6 @@
-require('app').constant('chartOption', {
+var analyzer = require("../rule/rule.js");
+
+require("app").constant('chartData', analyzer.analyzeAll()).constant('chartOption', {
 
     animation: false,
 
@@ -58,3 +60,5 @@ require('app').constant('chartOption', {
     legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
     
 });
+
+console.log("Data ready");

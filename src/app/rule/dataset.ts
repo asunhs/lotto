@@ -38,7 +38,7 @@ export module Dataset {
     
     export function build(data: number[][]): any {
         return {
-            labels: data[0].map((item, index) => index),
+            labels: data[0].map((item, index) => (index % 10) ? "" : index),
             datasets: data.map((record, index) => {
                 return new DataSet(dataSetTypes[index], record);
             })

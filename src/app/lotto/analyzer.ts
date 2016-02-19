@@ -21,4 +21,8 @@ export class Analyzer {
             new movingAvg.MovingAvg(200, spreadLotto[n]).toArray()
         ]);
     }
+    
+    analyzeAll() {
+        return balls.map(ball => this.analyze(ball));
+    }
 }

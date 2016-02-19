@@ -1,8 +1,7 @@
-var analyzer = require("../rule/rule.js"),
-    Chart = require("../lib/Chart.min.js");
+var Chart = require("../lib/Chart.min.js");
 
 
-require('app').directive('lineChart', /* @ngInject */ function (chartOption) {
+require('app').directive('lineChart', /* @ngInject */ function (chartOption, chartData) {
     return {
         restrict: 'E',
         replace: true,
@@ -15,9 +14,9 @@ require('app').directive('lineChart', /* @ngInject */ function (chartOption) {
             var canvas = element.find('canvas'),
                 ctx = canvas.get(0).getContext("2d");
             
-            //element.find('.graph').scrollLeft(canvas.width());
+            element.find('.graph').scrollLeft(canvas.width());
 
-            new Chart(ctx).Line(analyzer.analyze(scope.item), chartOption);
+            new Chart(ctx).Line(chartData[parseInt(scope.item) - 1], chartOption);
             
         }
     };
