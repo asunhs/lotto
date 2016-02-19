@@ -1,10 +1,16 @@
-var one = require("../rule/rule.js"),
-    Chart = require("../lib/Chart.min.js");
+require('app').constant('chartOption', {
 
-
-var options = {
-    
     animation: false,
+
+    // Boolean - If we want to override with a hard coded scale
+    scaleOverride: true,
+
+    // ** Required if scaleOverride is true **
+    // Number - The number of steps in a hard coded scale
+    scaleSteps: 5,
+    
+    // Number - The value jump in the hard coded scale
+    scaleStepWidth: 0.1,
 
     ///Boolean - Whether grid lines are shown across the chart
     scaleShowGridLines : true,
@@ -25,7 +31,7 @@ var options = {
     bezierCurve : true,
 
     //Number - Tension of the bezier curve between points
-    bezierCurveTension : 0.4,
+    bezierCurveTension : 0.5,
 
     //Boolean - Whether to show a dot for each point
     pointDot : false,
@@ -50,23 +56,5 @@ var options = {
 
     //String - A legend template
     legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
-
-};
-
-
-
-/* @ngInject */
-function SampleCtrl ($scope, $element) {
-    $scope.name = "Foods";
-    $scope.data = one.datasets;
     
-    var ctx = $element.find("#myChart").get(0).getContext("2d");
-    var myNewChart = new Chart(ctx).Line(one, options);
-}
-
-module.exports = require('app').directive('packSample', /* @ngInject */ function () {
-    return {
-        templateUrl: "subject/sample.tpl.html",
-        controller: SampleCtrl
-    };
 });

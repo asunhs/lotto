@@ -36,5 +36,4 @@ export class MovingAvg {
         
         return arr.concat(this.averages);
     }
-    
 }

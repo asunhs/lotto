@@ -1,19 +1,3 @@
-//module.exports = require('app').controller('tsSample', require('./movingAvg.ts').MovingAvgCtrl);
-
-var MovingAvg = require('./movingAvg.ts').MovingAvg,
-    movingAvg = new MovingAvg(8, [8,0,7,2,3,10,4,5,9,1,6]);
-
-console.log(movingAvg.toArray());
-
-
-var Tables = require('./table.ts').Tables;
-
-//console.log(Tables.count([[1,5,6,2,4],[8,2,6,1,0],[2,4,9,1,5]]));
-//console.log(Tables.count([[1,5,6,2,4],[8,2,6,1,0],[2,4,9,1,5]], {0:200}));
-//console.log(Tables.merge({0:200, 1:100}, {0:100,3:500}));
-//console.log(Tables.spread([[1,5,6,2,4],[8,2,6,1,0],[2,4,9,1,5]], [1,6,5]));
-
-
 var lottos = [[7,17,19,30,36,38,34],
     [5,15,22,23,34,35,2],
     [1,8,10,13,28,42,45],
@@ -704,16 +688,6 @@ var lottos = [[7,17,19,30,36,38,34],
     [9,13,21,25,32,42,2],
     [10,23,29,33,37,40,16]];
 
-var balls = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
+var Analyzer = require("../lotto/analyzer.ts").Analyzer;
 
-var spreadLotto = Tables.spread(lottos, balls);
-
-var one = [];
-
-one.push(new MovingAvg(20, spreadLotto[1]).toArray());
-one.push(new MovingAvg(50, spreadLotto[1]).toArray());
-one.push(new MovingAvg(100, spreadLotto[1]).toArray());
-
-var Dataset = require("./dataset.ts").Dataset;
-
-module.exports = Dataset.build(one);
+module.exports = new Analyzer(lottos);
