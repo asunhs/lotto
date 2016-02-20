@@ -21,7 +21,7 @@ require('app').directive('stackChart', /* @ngInject */ function (chartOption, ch
                 return { n : n, i : i+1 };
             }).sort(function (l, r) {
                 return r.n - l.n;
-            }).slice(0,7);
+            }).slice(0,6);
 
             new Chart(ctx).Bar(data, chartOption);
         }
