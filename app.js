@@ -6,7 +6,7 @@ angular.module("directives/lineChart.tpl.html", []).run(["$templateCache", funct
     "<div class=\"section\">\n" +
     "    <div class=\"header\">\n" +
     "        <div>{{::item}}</div>\n" +
-    "        <div><span>ESTIMATE</span>20MA : {{::last[0]}}, 50MA : {{::last[1]}}, 200MA : {{::last[2]}}</div>\n" +
+    "        <div><span>ESTIMATE</span>20MA : <b>{{::last[0]}}</b> &nbsp; &nbsp;50MA : <b>{{::last[1]}}</b> &nbsp; &nbsp;200MA : <b>{{::last[2]}}</b></div>\n" +
     "    </div>\n" +
     "    <div class=\"graph\">\n" +
     "        <canvas></canvas>\n" +
@@ -22,7 +22,7 @@ angular.module("directives/stackChart.tpl.html", []).run(["$templateCache", func
     "        <div>\n" +
     "            <span>BEST</span>\n" +
     "            <ul>\n" +
-    "                <li ng-repeat=\"item in top track by $index\">{{::item.i}} <span>{{::item.n}}</span></li>\n" +
+    "                <li ng-repeat=\"item in top track by $index\">{{::item.i}}<span>({{::item.n}})</span></li>\n" +
     "            </ul>\n" +
     "        </div>\n" +
     "    </div>\n" +
