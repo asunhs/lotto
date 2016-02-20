@@ -11,7 +11,7 @@ div {
     height: 30px;
 
     div:first-child {
-      width: 30px;
+      width: 40px;
       height: 30px;
       font-size: 21px;
       font-weight: bold;
@@ -25,7 +25,7 @@ div {
 
       vertical-align: top;
       position: relative;
-      font-size: 18px;
+      font-size: 15px;
       text-align: center;
       line-height: 45px;
 
@@ -35,7 +35,7 @@ div {
         color: #dddddd;
         left: 0;
         top: 0;
-        width: 38px;
+        width: 50px;
         height: 8px;
         padding: 2px;
         font-size: 10px;
@@ -51,7 +51,7 @@ div {
       li {
         display: inline-block;
         font-weight: bold;
-        padding: 0 5px;
+        padding: 0 3px;
 
         span {
           font-weight: normal;
