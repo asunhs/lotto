@@ -12,11 +12,16 @@ require('app').directive('lineChart', /* @ngInject */ function (chartOption, cha
         link: function (scope, element) {
             
             var canvas = element.find('canvas'),
-                ctx = canvas.get(0).getContext("2d");
+                ctx = canvas.get(0).getContext("2d"),
+                data = chartData[parseInt(scope.item) - 1];
             
-            element.find('.graph').scrollLeft(canvas.width());
+            //element.find('.graph').scrollLeft(canvas.width());
 
-            new Chart(ctx).Line(chartData[parseInt(scope.item) - 1], chartOption);
+            scope.last = data.datasets.map(function (record) {
+                return record.data[record.data.length - 1];
+            });
+
+            new Chart(ctx).Line(data, chartOption);
             
         }
     };
