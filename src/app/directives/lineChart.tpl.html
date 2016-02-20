@@ -1,6 +1,7 @@
 <div class="section">
     <div class="header">
-        {{::item}}
+        <div>{{::item}}</div>
+        <div><span>ESTIMATE</span>20MA : {{::last[0]}}, 50MA : {{::last[1]}}, 200MA : {{::last[2]}}</div>
     </div>
     <div class="graph">
         <canvas></canvas>

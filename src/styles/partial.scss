@@ -1,34 +1,56 @@
 div {
   display: inline-block;
-  
-  a {
-    font-weight: bold;
-  }
 }
 
 .section {
   width: 100%;
-  height: 220px;
-  position: relative;
-  
+  height: 260px;
+
   .header {
-    left: 0;
-    width: 40px;
-    height: 220px;
-    font-size: 2em;
+    width: 100%;
+    height: 30px;
+
+    div:first-child {
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      vertical-align: top;
+      background-color: #ff8c00;
+    }
+
+    div:nth-child(2) {
+      height: 30px;
+
+      vertical-align: top;
+      position: relative;
+      font-size: 14px;
+      line-height: 40px;
+
+      span {
+        position: absolute;
+        background-color: #000000;
+        color: #dddddd;
+        left: 0;
+        top: 0;
+        width: 52px;
+        height: 8px;
+        padding: 2px;
+        font-size: 11px;
+        font-weight: bold;
+        line-height: 8px;
+      }
+    }
   }
-  
+
   .graph {
+    width: 100%;
     height: 220px;
-    left: 40px;
-    right: 0;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    position: absolute;
-    
+
     canvas {
-      width: 10000px;
-      height: 200px
+      width: 100%;
+      heigth: 100%;
     }
   }
 }
