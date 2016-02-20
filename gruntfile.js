@@ -13,7 +13,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-sass');
 
     // Default tasks.
-    grunt.registerTask('asset', ['copy:index', 'copy:images', 'copy:json']);
+    grunt.registerTask('asset', ['copy:index', 'copy:images', 'copy:resources']);
     grunt.registerTask('js', ['html2js', 'browserify', 'ngAnnotate:js', 'clean:js']);
     grunt.registerTask('css', ['sass', 'cssmin', 'clean:css']);
     grunt.registerTask('default', ['asset', 'css', 'js', 'uglify']);
@@ -107,11 +107,11 @@ module.exports = function(grunt) {
                     expand: true
                 }]
             },
-            json: {
+            resources: {
                 files: [{
-                    dest: '<%=distDir%>/json',
+                    dest: '<%=distDir%>/resources',
                     src:['**/*'],
-                    cwd: '<%=baseDir%>/json',
+                    cwd: '<%=baseDir%>/resources',
                     expand: true
                 }]
             },

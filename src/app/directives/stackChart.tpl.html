@@ -1,0 +1,14 @@
+<div class="section">
+    <div class="header">
+        <div>{{::label}}</div>
+        <div>
+            <span>BEST</span>
+            <ul>
+                <li ng-repeat="item in top track by $index">{{::item.i}} <span>{{::item.n}}</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="graph">
+        <canvas></canvas>
+    </div>
+</div>
