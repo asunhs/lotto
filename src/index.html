@@ -10,8 +10,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
     <script src="app.js"></script>
 </head>
-<body ng-app="packApp">
-    <stack-chart ng-repeat="n in [20,50,200] track by $index" period="{{::$index}}"></stack-chart>
+<body ng-app="packApp" ng-controller="LottoCtrl">
+    <stack-chart data="diff200" title="200MA - 20MA" label="DF" start="-.2"></stack-chart>
+    <stack-chart data="diff50" title="50MA - 20MA" label="DF" start="-.2"></stack-chart>
+    <stack-chart ng-repeat="data in last track by $index" data="data" title="{{::getMATitle($index)}}" label="MA"></stack-chart>
+    <!--<stack-chart ng-repeat="n in [20,50,200] track by $index" period="{{::$index}}"></stack-chart>-->
     <line-chart ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45] track by $index" item="{{::n}}"></line-chart>
 </body>
 </html>

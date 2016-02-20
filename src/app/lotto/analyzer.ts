@@ -6,12 +6,14 @@ var balls: number[] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,
 
 export class Analyzer {
     private averages: number[][][];
+    private lasts: number[][];
     private length: number;
     private periods: number[] = [20, 50, 200];
     
     constructor(lottos: number[][]) {
-        this.averages = this.averageAll(lottos);
         this.length = lottos.length;
+        this.averages = this.averageAll(lottos);
+        this.lasts = this.getLasts();
     }
 
     average(lottos: number[][], n: number) {
@@ -54,9 +56,18 @@ export class Analyzer {
         });
     }
 
-    analyzeLast() {
-        var lasts = this.getLasts();
+    buildDataByBalls(record: number[]) {
+        return dataset.Dataset.build(balls.map(ball => ball.toString()), [record]);
+    }
 
-        return lasts.map(last => dataset.Dataset.build(balls.map(ball => ball.toString()), [last]));
+    analyzeLast() {
+        return this.lasts.map(this.buildDataByBalls);
+    }
+
+    analyzeDifference(origin: number, target: number) {
+        var lhs = this.lasts[origin],
+            rhs = this.lasts[target];
+
+        return this.buildDataByBalls(lhs.map((l, index) => Math.floor((l - rhs[index]) * 1000) / 1000));
     }
 }
