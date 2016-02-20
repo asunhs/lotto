@@ -1,11 +1,14 @@
 var analyzer = require("../rule/rule.js");
 
-require("app").constant('chartData', analyzer.analyzeAll()).constant('chartOption', {
+require("app").constant('periods', analyzer.periods).constant('chartLast', analyzer.analyzeLast()).constant('chartData', analyzer.analyzeAll()).constant('chartOption', {
 
     animation: false,
 
     // Boolean - If we want to override with a hard coded scale
     scaleOverride: true,
+
+    // Number - Scale label font size in pixels
+    scaleFontSize: 9,
 
     // ** Required if scaleOverride is true **
     // Number - The number of steps in a hard coded scale
@@ -16,6 +19,9 @@ require("app").constant('chartData', analyzer.analyzeAll()).constant('chartOptio
 
     ///Boolean - Whether grid lines are shown across the chart
     scaleShowGridLines : true,
+
+    // String - Scale label font declaration for the scale label
+    scaleFontFamily: "'Open Sans Condensed', 'Helvetica', 'Arial', sans-serif",
 
     //String - Colour of the grid lines
     scaleGridLineColor : "rgba(0,0,0,.05)",
@@ -47,6 +53,9 @@ require("app").constant('chartData', analyzer.analyzeAll()).constant('chartOptio
     //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
     pointHitDetectionRadius : 20,
 
+    //Boolean - If there is a stroke on each bar
+    barShowStroke : false,
+
     //Boolean - Whether to show a stroke for datasets
     datasetStroke : true,
 
@@ -55,6 +64,9 @@ require("app").constant('chartData', analyzer.analyzeAll()).constant('chartOptio
 
     //Boolean - Whether to fill the dataset with a colour
     datasetFill : false,
+
+    // Boolean - Determines whether to draw tooltips on the canvas or not
+    showTooltips: false,
 
     //String - A legend template
     legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"

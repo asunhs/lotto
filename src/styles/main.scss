@@ -1,6 +1,24 @@
+@font-face {
+  font-family: 'Open Sans Condensed';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Cond Light'), local('OpenSans-CondensedLight'), url(resources/OpenSansCondensedLight.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans Condensed';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Condensed Bold'), local('OpenSans-CondensedBold'), url(resources/OpenSansCondensedBold.woff) format('woff');
+}
+
 html {
   width: 100%;
   height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans Condensed', sans-serif;
 }
 
 @import "partial";

@@ -7,6 +7,7 @@ var balls: number[] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,
 export class Analyzer {
     private averages: number[][][];
     private length: number;
+    private periods: number[] = [20, 50, 200];
     
     constructor(lottos: number[][]) {
         this.averages = this.averageAll(lottos);
@@ -17,11 +18,7 @@ export class Analyzer {
 
         var spreadLotto = Tables.spread(lottos, balls);
 
-        return [
-            new movingAvg.MovingAvg(20, spreadLotto[n]).toArray(),
-            new movingAvg.MovingAvg(50, spreadLotto[n]).toArray(),
-            new movingAvg.MovingAvg(200, spreadLotto[n]).toArray()
-        ];
+        return this.periods.map(period => new movingAvg.MovingAvg(period, spreadLotto[n]).toArray());
     }
 
     averageAll(lottos: number[][]) {
@@ -43,5 +40,23 @@ export class Analyzer {
     
     analyzeAll() {
         return balls.map(ball => this.analyze(ball, 30));
+    }
+
+    getLasts() {
+        var lasts = this.averages.map(average => {
+            return average.map(period => {
+                return period[period.length-1];
+            });
+        });
+
+        return this.periods.map((period, index) => {
+            return lasts.map(last => last[index]);
+        });
+    }
+
+    analyzeLast() {
+        var lasts = this.getLasts();
+
+        return lasts.map(last => dataset.Dataset.build(balls.map(ball => ball.toString()), [last]));
     }
 }
