@@ -5,7 +5,8 @@ angular.module("directives/lineChart.tpl.html", []).run(["$templateCache", funct
   $templateCache.put("directives/lineChart.tpl.html",
     "<div class=\"section\">\n" +
     "    <div class=\"header\">\n" +
-    "        {{::item}}\n" +
+    "        <div>{{::item}}</div>\n" +
+    "        <div><span>ESTIMATE</span>20MA : {{::last[0]}}, 50MA : {{::last[1]}}, 200MA : {{::last[2]}}</div>\n" +
     "    </div>\n" +
     "    <div class=\"graph\">\n" +
     "        <canvas></canvas>\n" +
@@ -28,11 +29,16 @@ require('app').directive('lineChart', /* @ngInject */ ["chartOption", "chartData
         link: function (scope, element) {
             
             var canvas = element.find('canvas'),
-                ctx = canvas.get(0).getContext("2d");
+                ctx = canvas.get(0).getContext("2d"),
+                data = chartData[parseInt(scope.item) - 1];
             
-            element.find('.graph').scrollLeft(canvas.width());
+            //element.find('.graph').scrollLeft(canvas.width());
 
-            new Chart(ctx).Line(chartData[parseInt(scope.item) - 1], chartOption);
+            scope.last = data.datasets.map(function (record) {
+                return record.data[record.data.length - 1];
+            });
+
+            new Chart(ctx).Line(data, chartOption);
             
         }
     };
@@ -56,19 +62,34 @@ var dataset = require("../rule/dataset");
 var balls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45];
 var Analyzer = (function () {
     function Analyzer(lottos) {
-        this.lottos = lottos;
+        this.averages = this.averageAll(lottos);
+        this.length = lottos.length;
     }
-    Analyzer.prototype.analyze = function (n) {
-        var spreadLotto = Tables.spread(this.lottos, balls);
-        return dataset.Dataset.build([
+    Analyzer.prototype.average = function (lottos, n) {
+        var spreadLotto = Tables.spread(lottos, balls);
+        return [
             new movingAvg.MovingAvg(20, spreadLotto[n]).toArray(),
             new movingAvg.MovingAvg(50, spreadLotto[n]).toArray(),
             new movingAvg.MovingAvg(200, spreadLotto[n]).toArray()
-        ]);
+        ];
+    };
+    Analyzer.prototype.averageAll = function (lottos) {
+        var _this = this;
+        return balls.map(function (ball) { return _this.average(lottos, ball); });
+    };
+    Analyzer.prototype.analyze = function (n, recent) {
+        var _this = this;
+        var recentData = this.averages[n - 1].map(function (record) {
+            return record.slice(record.length - recent);
+        }), labels = recentData[0].map(function (item, index) {
+            var s = _this.length - recent + index + 1;
+            return (s % 10 && index != (recent - 1)) ? "" : s.toString();
+        });
+        return dataset.Dataset.build(labels, recentData);
     };
     Analyzer.prototype.analyzeAll = function () {
         var _this = this;
-        return balls.map(function (ball) { return _this.analyze(ball); });
+        return balls.map(function (ball) { return _this.analyze(ball, 30); });
     };
     return Analyzer;
 })();
@@ -100,9 +121,9 @@ var Dataset;
         }
         return DataSet;
     })();
-    function build(data) {
+    function build(labels, data) {
         return {
-            labels: data[0].map(function (item, index) { return (index % 10) ? "" : index; }),
+            labels: labels,
             datasets: data.map(function (record, index) {
                 return new DataSet(dataSetTypes[index], record);
             })
