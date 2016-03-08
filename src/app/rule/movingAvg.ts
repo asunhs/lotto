@@ -1,4 +1,4 @@
-export class MovingAvg {
+class MovingAvg {
     
     private period: number;
     private averages: number[] = [];
@@ -37,3 +37,5 @@ export class MovingAvg {
         return arr.concat(this.averages);
     }
 }
+
+export = MovingAvg

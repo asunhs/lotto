@@ -1,10 +1,10 @@
-import movingAvg = require('../rule/movingAvg');
+import MovingAvg = require('../rule/movingAvg');
 import Tables = require('../rule/table');
-import dataset = require("../rule/dataset");
+import Dataset = require("../rule/dataset");
 
 var balls: number[] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
 
-export class Analyzer {
+class Analyzer {
     private averages: number[][][];
     private lasts: number[][];
     private length: number;
@@ -20,7 +20,7 @@ export class Analyzer {
 
         var spreadLotto = Tables.spread(lottos, balls);
 
-        return this.periods.map(period => new movingAvg.MovingAvg(period, spreadLotto[n]).toArray());
+        return this.periods.map(period => new MovingAvg(period, spreadLotto[n]).toArray());
     }
 
     averageAll(lottos: number[][]) {
@@ -37,7 +37,7 @@ export class Analyzer {
                 return (s % 10 && index != (recent - 1)) ? "" : s.toString();
             });
 
-        return dataset.Dataset.build(labels, recentData);
+        return Dataset.build(labels, recentData);
     }
     
     analyzeAll() {
@@ -57,7 +57,7 @@ export class Analyzer {
     }
 
     buildDataByBalls(record: number[]) {
-        return dataset.Dataset.build(balls.map(ball => ball.toString()), [record]);
+        return Dataset.build(balls.map(ball => ball.toString()), [record]);
     }
 
     analyzeLast() {
@@ -71,3 +71,5 @@ export class Analyzer {
         return this.buildDataByBalls(lhs.map((l, index) => Math.floor((l - rhs[index]) * 1000) / 1000));
     }
 }
+
+export = Analyzer

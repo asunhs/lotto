@@ -1,4 +1,4 @@
-export module Dataset {
+module Dataset {
     
     class DataSetType {
         label: string;
@@ -45,3 +45,5 @@ export module Dataset {
         };
     }
 }
+
+export = Dataset
