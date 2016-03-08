@@ -687,8 +687,10 @@ var lottos = [[7,17,19,30,36,38,34],
     [11,16,19,21,27,31,30],
     [9,13,21,25,32,42,2],
     [10,23,29,33,37,40,16],
-    [24,25,33,34,38,39,43]];
+    [24,25,33,34,38,39,43],
+    [15,27,33,35,43,45,16],
+    [3,11,14,15,32,36,44]];
 
-var Analyzer = require("../lotto/analyzer.ts").Analyzer;
+var Analyzer = require("../lotto/analyzer.ts");
 
 module.exports = new Analyzer(lottos);
